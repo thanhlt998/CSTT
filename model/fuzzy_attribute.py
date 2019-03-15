@@ -2,7 +2,7 @@ class FuzzyAttribute:
     def __init__(self):
         self.beta = 0
         self.alpha = 0
-        self.certain_factor = 0
+        self.certainty_factor = 0
 
     def get_beta(self):
         return self.beta
@@ -19,8 +19,8 @@ class FuzzyAttribute:
     def set_alpha(self, alpha):
         self.alpha = alpha
 
-    def get_certain_factor(self):
-        return self.certain_factor
+    def get_certainty_factor(self):
+        return self.certainty_factor
 
-    def set_certain_factor(self, certain_factor):
+    def set_certainty_factor(self, certain_factor):
         self.certain_factor = certain_factor
