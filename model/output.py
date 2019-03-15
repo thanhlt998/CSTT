@@ -5,10 +5,10 @@ class ShouldEatLess:
 
     def set_total_dom(self):
         self.total_dom = 0.0
-    
+
     def get_total_dom(self):
         return self.total_dom
-    
+
     def set_max_dom(self, max_dom):
         self.max_dom = max_dom
 
@@ -17,10 +17,11 @@ class ShouldEatLess:
 
     def set_grade_of_certainty(self, grade_of_certainty):
         self.grade_of_certainty = grade_of_certainty
-    
+
     def get_grade_of_certainty(self):
         return self.grade_of_certainty
-    
+
+
 class ShouldEatMore:
     grade_of_certainty = 0.0
     max_dom = 0.0
@@ -28,10 +29,10 @@ class ShouldEatMore:
 
     def set_total_dom(self):
         self.total_dom = 0.0
-    
+
     def get_total_dom(self):
         return self.total_dom
-    
+
     def set_max_dom(self, max_dom):
         self.max_dom = max_dom
 
@@ -40,9 +41,10 @@ class ShouldEatMore:
 
     def set_grade_of_certainty(self, grade_of_certainty):
         self.grade_of_certainty = grade_of_certainty
-    
+
     def get_grade_of_certainty(self):
         return self.grade_of_certainty
+
 
 class ShouldDoExercise:
     grade_of_certainty = 0.0
@@ -51,10 +53,10 @@ class ShouldDoExercise:
 
     def set_total_dom(self):
         self.total_dom = 0.0
-    
+
     def get_total_dom(self):
         return self.total_dom
-    
+
     def set_max_dom(self, max_dom):
         self.max_dom = max_dom
 
@@ -63,9 +65,10 @@ class ShouldDoExercise:
 
     def set_grade_of_certainty(self, grade_of_certainty):
         self.grade_of_certainty = grade_of_certainty
-    
+
     def get_grade_of_certainty(self):
         return self.grade_of_certainty
+
 
 class Fine:
     grade_of_certainty = 0.0
@@ -74,10 +77,10 @@ class Fine:
 
     def set_total_dom(self):
         self.total_dom = 0.0
-    
+
     def get_total_dom(self):
         return self.total_dom
-    
+
     def set_max_dom(self, max_dom):
         self.max_dom = max_dom
 
@@ -86,6 +89,6 @@ class Fine:
 
     def set_grade_of_certainty(self, grade_of_certainty):
         self.grade_of_certainty = grade_of_certainty
-    
+
     def get_grade_of_certainty(self):
         return self.grade_of_certainty
