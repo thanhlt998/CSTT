@@ -116,7 +116,7 @@ class FuzzyClassifier:
         self.deduce(cls_attr)
 
     def deduce(self, cls_attr):
-        sort_by_attr = sorted(cls_attr.items(), key=lambda v: v.get_alpha())
+        sort_by_attr = sorted(cls_attr.items(), key=lambda v: v[1].get_alpha())
         cls_attr = {}
         for attr in sort_by_attr:
             cls_attr[attr[0]] = attr[1]
