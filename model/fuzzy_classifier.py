@@ -112,7 +112,6 @@ class FuzzyClassifier:
                 alpha = self.output_class[clss].get_certainty_factor() * dom
                 if alpha > cls_attr[clss].get_alpha():
                     cls_attr[clss].set_alpha(alpha)
-
         sort_by_attr = sorted(cls_attr.items(), key=lambda v: v[1].get_alpha())
         cls_attr = {}
         for attr in sort_by_attr:
