@@ -18,10 +18,14 @@ class Human:
 
     def get_fuzzy_info(self):
         for rule in self.APPLIED_FUZZY_RULES:
-            fuzzy_rules = [method for method in dir(rule) if callable(getattr(rule, method)) and method.startswith('fuzzy')]
+            fuzzy_rules = [method for method in dir(rule) if
+                           callable(getattr(rule, method)) and method.startswith('fuzzy')]
             for fuzzy_rule in fuzzy_rules:
-                self.fuzzy_dom[fuzzy_rule] = getattr(rule, fuzzy_rule)(self)
+                self.fuzzy_dom[fuzzy_rule] = getattr(rule, fuzzy_rule)(rule, self)
         return self
+
+    def __hash__(self) -> int:
+        return super().__hash__()
 
     def of_class(self, clss):
         self.cls = clss

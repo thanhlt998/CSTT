@@ -51,7 +51,7 @@ class FuzzyClassifier:
 
     def calculate_combined_rules_membership(self, item, applied_rule):
         dom = 1
-        for key, _ in item.fuzzy_dom:
+        for key, _ in item.fuzzy_dom.items():
             if str(key) in applied_rule:
                 dom = dom * item.fuzzy_dom[key]
         return dom
@@ -103,8 +103,8 @@ class FuzzyClassifier:
         for r in self.deleted_rule:
             cls_attr.__delitem__(r)
 
-        for clss, rj in self.class_determine:
-            if self.output_class[clss] is None:
+        for clss, rj in self.class_determine.items():
+            if self.output_class.get(clss) is None:
                 continue
             for rule in rj:
                 applied_rule = rule.split("|")

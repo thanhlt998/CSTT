@@ -46,11 +46,11 @@ class Height:
         dom = 0
         if human.sex == self.MALE:
             left = 170
-            top = 170
+            top = 180
             right = 180
         else:
             left = 160
-            top = 160
+            top = 168
             right = 168
 
         if human.height >= right:
