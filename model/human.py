@@ -5,12 +5,13 @@ from fuzzy_rule.weight_rule import Weight
 class Human:
     APPLIED_FUZZY_RULES = [Height, Weight]
 
-    def __init__(self, name, height, weight, sex):
+    def __init__(self, name, height, weight, sex, cls=None):
         self.name = name
         self.height = height
         self.weight = weight
         self.sex = sex
         self.fuzzy_dom = {}
+        # self.cls = None
 
     def __eq__(self, other):
         return self.name == other.name
@@ -20,3 +21,7 @@ class Human:
             fuzzy_rules = [method for method in dir(rule) if callable(getattr(rule, method)) and method.startswith('fuzzy')]
             for fuzzy_rule in fuzzy_rules:
                 self.fuzzy_dom[fuzzy_rule] = getattr(rule, fuzzy_rule)(self)
+        return self
+
+    def of_class(self, clss):
+        self.cls = clss

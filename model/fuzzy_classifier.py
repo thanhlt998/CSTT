@@ -113,10 +113,7 @@ class FuzzyClassifier:
                 if alpha > cls_attr[clss].get_alpha():
                     cls_attr[clss].set_alpha(alpha)
 
-        self.deduce(cls_attr)
-
-    def deduce(self, cls_attr):
-        sort_by_attr = sorted(cls_attr.items(), key=lambda v: v.get_alpha())
+        sort_by_attr = sorted(cls_attr.items(), key=lambda v: v[1].get_alpha())
         cls_attr = {}
         for attr in sort_by_attr:
             cls_attr[attr[0]] = attr[1]
@@ -128,3 +125,17 @@ class FuzzyClassifier:
             return None
         else:
             return list(cls_attr.items())[-1][0]
+
+    # def deduce(self, cls_attr):
+    #     sort_by_attr = sorted(cls_attr.items(), key=lambda v: v.get_alpha())
+    #     cls_attr = {}
+    #     for attr in sort_by_attr:
+    #         cls_attr[attr[0]] = attr[1]
+
+    #     if len(cls_attr) == 1:
+    #         return list(cls_attr.items())[-1][0]
+
+    #     if list(cls_attr.items())[-2][1].get_alpha() == list(cls_attr.items())[-1][1].get_alpha():
+    #         return None
+    #     else:
+    #         return list(cls_attr.items())[-1][0]
