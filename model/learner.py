@@ -23,6 +23,7 @@ class Learner:
     def add_another_weak_learner(self, _itemset):
         if self.t > self.T:
             self.terminated = True
+            return
 
         self.itemset.append(_itemset)
         self.t = self.t + 1
@@ -76,7 +77,7 @@ class Learner:
     def is_terminated(self):
         if self.terminated:
             for item in self.itemset:
-                print("Terminated: #", str(item.name), " #", item.cls.__name__)
+                print("Terminated: #", str(item.name), " #", item.cls)
                 # print("\n")
             return True
         else:

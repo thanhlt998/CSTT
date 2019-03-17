@@ -11,7 +11,7 @@ class Human:
         self.weight = weight
         self.sex = sex
         self.fuzzy_dom = {}
-        # self.cls = None
+        self.cls = cls
 
     def __eq__(self, other):
         return self.name == other.name

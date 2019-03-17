@@ -77,12 +77,12 @@ class FuzzyClassifier:
             if len(beta_arr) == 1:
                 self.output_class[key].set_certainty_factor(1.0)
             elif len(beta_arr) == 0:
-                self.output_class.__delitem__(key)
                 self.deleted_rule.append(key)
+                self.output_class.__delitem__(key)
                 continue
             elif len(beta_arr) >= 2 and beta_arr[0] == beta_arr[1]:
-                self.output_class.__delitem__(key)
                 self.deleted_rule.append(key)
+                self.output_class.__delitem__(key)
                 continue
             else:
                 self.output_class[key].set_certainty_factor(helper.calculate_certainty_factor(beta_arr, beta_arr[0]))
@@ -100,8 +100,10 @@ class FuzzyClassifier:
             Fine: FuzzyAttribute()
         }
 
-        for r in self.deleted_rule:
-            cls_attr.__delitem__(r)
+        # for r in self.deleted_rule:
+        #     cls_attr.__delitem__(r)
+
+        cls_attr = {k : v for k, v in cls_attr.items() if k not in self.deleted_rule}
 
         for clss, rj in self.class_determine.items():
             if self.output_class.get(clss) is None:

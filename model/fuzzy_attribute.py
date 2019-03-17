@@ -23,4 +23,4 @@ class FuzzyAttribute:
         return self.certainty_factor
 
     def set_certainty_factor(self, certain_factor):
-        self.certain_factor = certain_factor
+        self.certainty_factor = certain_factor

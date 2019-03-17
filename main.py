@@ -20,7 +20,7 @@ def create_training_data():
                 temp_list_attr[0],
                 int(temp_list_attr[1]),
                 int(temp_list_attr[2]),
-                temp_list_attr[3]
+                temp_list_attr[3].strip()
             ).get_fuzzy_info())
         f.close()
 
@@ -36,7 +36,7 @@ def boosting():
     #     if learner.is_terminated():
     #         del boost_set[k]
 
-    boost_set = {k: learner for k, learner in boost_set.items() if learner.is_terminated()}
+    boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
 
     round_ = 0
     while len(boost_set) > 0:
@@ -52,7 +52,7 @@ def boosting():
         item = list(ramp.items())[0][0]
         item_learner = list(ramp.items())[0][1]
 
-        print("Weakest learner to be combined: #", item_learner.itemset[0].name)
+        print("Weakest learner to be combined: #", [item_.name for item_ in item_learner.itemset])
 
         del boost_set[item]
 
@@ -66,7 +66,7 @@ def boosting():
         #     if learner.is_terminated():
         #         del boost_set[k]
 
-        boost_set = {k: learner for k, learner in boost_set.items() if learner.is_terminated()}
+        boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
 
         round_ = round_ + 1
         weak_learner = []
