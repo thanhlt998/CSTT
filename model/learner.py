@@ -77,7 +77,7 @@ class Learner:
     def is_terminated(self):
         if self.terminated:
             for item in self.itemset:
-                print("Terminated: #", str(item.name), " #", item.cls)
+                print("Terminated: #", str(item.name), " #", item.cls.__name__)
                 # print("\n")
             return True
         else:
