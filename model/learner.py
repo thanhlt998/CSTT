@@ -4,7 +4,7 @@ import math
 
 
 class Learner:
-    T = 5
+    T = 7
 
     def __init__(self, itemset):
         # self.itemset = list(itertools.chain(*itemset))

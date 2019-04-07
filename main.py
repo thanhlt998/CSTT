@@ -6,28 +6,33 @@ from model.human import Human
 # from fuzzy_rule import weight_rule
 # from model import fuzzy_classifier
 from model.learner import Learner
+from sklearn.metrics import accuracy_score
 
 import operator
 
 FULL_SET = []
+TRUE_RESULT = {}
 
 
 def create_training_data():
-    with open('training_patterns', 'r') as f:
+    with open('train.txt', 'r') as f:
         for line in f.readlines():
             temp_list_attr = line.split('\t')
+            # if temp_list_attr[1].strip() == 'Female':
             FULL_SET.append(Human(
                 temp_list_attr[0],
-                int(temp_list_attr[1]),
                 int(temp_list_attr[2]),
-                temp_list_attr[3].strip()
+                int(temp_list_attr[3]),
+                temp_list_attr[1].strip()
             ).get_fuzzy_info())
+            TRUE_RESULT[temp_list_attr[0]] = int(temp_list_attr[4])
         f.close()
 
 
 def boosting():
     weak_learner = []
     boost_set = {}
+    result = []
 
     for item in FULL_SET:
         boost_set[item] = Learner([item]).action()
@@ -36,7 +41,15 @@ def boosting():
     #     if learner.is_terminated():
     #         del boost_set[k]
 
-    boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
+    tmp_boost_set = {}
+    for k, learner in boost_set.items():
+        if learner.is_terminated():
+            result += [(hum.name, hum.cls.index) for hum in learner.itemset]
+        else:
+            tmp_boost_set[k] = learner
+    boost_set = tmp_boost_set
+    # result = [k: learner for k, learner in boost_set.items() if learner.is_terminated()]
+    # boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
 
     round_ = 0
     while len(boost_set) > 0:
@@ -66,11 +79,28 @@ def boosting():
         #     if learner.is_terminated():
         #         del boost_set[k]
 
-        boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
+        tmp_boost_set = {}
+        for k, learner in boost_set.items():
+            if learner.is_terminated():
+                result += [(hum.name, hum.cls.index) for hum in learner.itemset]
+            else:
+                tmp_boost_set[k] = learner
+        boost_set = tmp_boost_set
+
+        # boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
 
         round_ = round_ + 1
         weak_learner = []
         print("--------8<---------- round: #", round_, "input left: #", len(boost_set))
+
+    true_classifier = [TRUE_RESULT[name] for name, index in result]
+    pred_classfifier = [index for name, index in result]
+    print("Accuracy: %.2f" % (
+                accuracy_score(true_classifier, pred_classfifier) * 100))
+
+    # for i in range(len(result)):
+    #     if result[i][1] != true_classifier[i]:
+    #         print(f'{result[i][0]}\t{result[i][1]}\t{true_classifier[i]}')
 
 
 create_training_data()

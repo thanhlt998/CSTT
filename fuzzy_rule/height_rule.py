@@ -2,22 +2,22 @@ from helper import triangle_calculate_membership
 
 
 class Height:
-    MALE = 'm'
-    FEMALE = 'f'
+    MALE = 'Male'
+    FEMALE = 'Female'
 
     def list(self):
         pass
 
-    def fuzzy_short(self, human):
+    def fuzzy_extremely_short(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 160
-            top = 160
-            right = 170
+            left = 140
+            top = 140
+            right = 155
         else:
-            left = 152
-            top = 152
-            right = 160
+            left = 140
+            top = 140
+            right = 155
 
         if human.height <= left:
             dom = 1
@@ -26,16 +26,32 @@ class Height:
 
         return dom
 
+    def fuzzy_short(self, human):
+        dom = 0
+        if human.sex == self.MALE:
+            left = 140
+            top = 155
+            right = 170
+        else:
+            left = 140
+            top = 155
+            right = 170
+
+        if left < human.height < right:
+            dom = triangle_calculate_membership(left, top, right, human.height)
+
+        return dom
+
     def fuzzy_average(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 160
+            left = 155
             top = 170
-            right = 180
+            right = 185
         else:
-            left = 152
-            top = 160
-            right = 168
+            left = 155
+            top = 170
+            right = 185
 
         if left < human.height < right:
             dom = triangle_calculate_membership(left, top, right, human.height)
@@ -46,12 +62,28 @@ class Height:
         dom = 0
         if human.sex == self.MALE:
             left = 170
-            top = 180
-            right = 180
+            top = 185
+            right = 200
         else:
-            left = 160
-            top = 168
-            right = 168
+            left = 170
+            top = 185
+            right = 200
+
+        if left < human.height < right:
+            dom = triangle_calculate_membership(left, top, right, human.height)
+
+        return dom
+
+    def fuzzy_extremely_tall(self, human):
+        dom = 0
+        if human.sex == self.MALE:
+            left = 185
+            top = 200
+            right = 200
+        else:
+            left = 185
+            top = 200
+            right = 200
 
         if human.height >= right:
             dom = 1

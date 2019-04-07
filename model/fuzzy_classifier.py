@@ -1,7 +1,7 @@
 import helper
 from model import human
 from model.fuzzy_attribute import FuzzyAttribute
-from model.output import ShouldEatLess, ShouldDoExercise, ShouldEatMore, Fine
+from model.output import ExtremelyWeak, Normal, Weak, Overweight, Obesity, ExtremelyObesity
 import helper
 from fuzzy_rule.height_rule import Height
 from fuzzy_rule.weight_rule import Weight
@@ -15,24 +15,47 @@ class FuzzyClassifier:
 
     def __init__(self, itemset):
         self.rule_classify = {
-            "fuzzy_short|fuzzy_light": ShouldEatMore,
-            "fuzzy_short|fuzzy_medium": ShouldDoExercise,
-            "fuzzy_short|fuzzy_heavy": ShouldEatLess,
-            "fuzzy_average|fuzzy_light": ShouldDoExercise,
-            "fuzzy_average|fuzzy_medium": Fine,
-            "fuzzy_average|fuzzy_heavy": ShouldEatLess,
-            "fuzzy_tall|fuzzy_light": ShouldEatMore,
-            "fuzzy_tall|fuzzy_medium": Fine,
-            "fuzzy_tall|fuzzy_heavy": ShouldDoExercise
+            "fuzzy_extremely_short|fuzzy_light": Overweight,
+            "fuzzy_extremely_short|fuzzy_medium": Obesity,
+            "fuzzy_extremely_short|fuzzy_heavy_1": ExtremelyObesity,
+            "fuzzy_extremely_short|fuzzy_heavy_2": ExtremelyObesity,
+            "fuzzy_extremely_short|fuzzy_heavy_3": ExtremelyObesity,
+            "fuzzy_extremely_short|fuzzy_heavy_4": ExtremelyObesity,
+            "fuzzy_short|fuzzy_light": Normal,
+            "fuzzy_short|fuzzy_medium": Overweight,
+            "fuzzy_short|fuzzy_heavy_1": Obesity,
+            "fuzzy_short|fuzzy_heavy_2": ExtremelyObesity,
+            "fuzzy_short|fuzzy_heavy_3": ExtremelyObesity,
+            "fuzzy_short|fuzzy_heavy_4": ExtremelyObesity,
+            "fuzzy_average|fuzzy_light": Weak,
+            "fuzzy_average|fuzzy_medium": Normal,
+            "fuzzy_average|fuzzy_heavy_1": Overweight,
+            "fuzzy_average|fuzzy_heavy_2": Obesity,
+            "fuzzy_average|fuzzy_heavy_3": ExtremelyObesity,
+            "fuzzy_average|fuzzy_heavy_4": ExtremelyObesity,
+            "fuzzy_tall|fuzzy_light": Weak,
+            "fuzzy_tall|fuzzy_medium": Normal,
+            "fuzzy_tall|fuzzy_heavy_1": Overweight,
+            "fuzzy_tall|fuzzy_heavy_2": Obesity,
+            "fuzzy_tall|fuzzy_heavy_3": Obesity,
+            "fuzzy_tall|fuzzy_heavy_4": ExtremelyObesity,
+            "fuzzy_extremely_tall|fuzzy_light": ExtremelyWeak,
+            "fuzzy_extremely_tall|fuzzy_medium": Weak,
+            "fuzzy_extremely_tall|fuzzy_heavy_1": Normal,
+            "fuzzy_extremely_tall|fuzzy_heavy_2": Overweight,
+            "fuzzy_extremely_tall|fuzzy_heavy_3": Obesity,
+            "fuzzy_extremely_tall|fuzzy_heavy_4": Obesity,
         }
 
         self.class_determine = helper.safe_invert(self.rule_classify)
 
         self.output_class = {
-            ShouldEatLess: FuzzyAttribute(),
-            ShouldDoExercise: FuzzyAttribute(),
-            ShouldEatMore: FuzzyAttribute(),
-            Fine: FuzzyAttribute()
+            ExtremelyWeak: FuzzyAttribute(),
+            Weak: FuzzyAttribute(),
+            Normal: FuzzyAttribute(),
+            Overweight: FuzzyAttribute(),
+            Obesity: FuzzyAttribute(),
+            ExtremelyObesity: FuzzyAttribute(),
         }
 
         self.itemset = itemset
@@ -94,16 +117,18 @@ class FuzzyClassifier:
 
     def reasoning(self, item):
         cls_attr = {
-            ShouldEatLess: FuzzyAttribute(),
-            ShouldDoExercise: FuzzyAttribute(),
-            ShouldEatMore: FuzzyAttribute(),
-            Fine: FuzzyAttribute()
+            ExtremelyWeak: FuzzyAttribute(),
+            Weak: FuzzyAttribute(),
+            Normal: FuzzyAttribute(),
+            Overweight: FuzzyAttribute(),
+            Obesity: FuzzyAttribute(),
+            ExtremelyObesity: FuzzyAttribute(),
         }
 
         # for r in self.deleted_rule:
         #     cls_attr.__delitem__(r)
 
-        cls_attr = {k : v for k, v in cls_attr.items() if k not in self.deleted_rule}
+        cls_attr = {k: v for k, v in cls_attr.items() if k not in self.deleted_rule}
 
         for clss, rj in self.class_determine.items():
             if self.output_class.get(clss) is None:
