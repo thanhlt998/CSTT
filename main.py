@@ -94,13 +94,20 @@ def boosting():
         print("--------8<---------- round: #", round_, "input left: #", len(boost_set))
 
     true_classifier = [TRUE_RESULT[name] for name, index in result]
-    pred_classfifier = [index for name, index in result]
+    pred_classifier = [index for name, index in result]
     print("Accuracy: %.2f" % (
-                accuracy_score(true_classifier, pred_classfifier) * 100))
+                accuracy_score(true_classifier, pred_classifier) * 100))
 
-    # for i in range(len(result)):
-    #     if result[i][1] != true_classifier[i]:
-    #         print(f'{result[i][0]}\t{result[i][1]}\t{true_classifier[i]}')
+    test_count = []
+    for i in range(len(result)):
+        if result[i][1] != true_classifier[i]:
+            # print(f'{result[i][0]}\t{result[i][1]}\t{true_classifier[i]}')
+            test_count.append((result[i][1], true_classifier[i]))
+
+    test_count_set = list(set(test_count))
+    test_count_set = sorted(test_count_set, key=lambda v: test_count.count(v))
+    for test in test_count_set:
+        print(test, '\t', test_count.count(test))
 
 
 create_training_data()

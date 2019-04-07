@@ -29,7 +29,7 @@ class FuzzyClassifier:
             "fuzzy_short|fuzzy_heavy_4": ExtremelyObesity,
             "fuzzy_average|fuzzy_light": Weak,
             "fuzzy_average|fuzzy_medium": Normal,
-            "fuzzy_average|fuzzy_heavy_1": Overweight,
+            "fuzzy_average|fuzzy_heavy_1": Obesity,
             "fuzzy_average|fuzzy_heavy_2": Obesity,
             "fuzzy_average|fuzzy_heavy_3": ExtremelyObesity,
             "fuzzy_average|fuzzy_heavy_4": ExtremelyObesity,

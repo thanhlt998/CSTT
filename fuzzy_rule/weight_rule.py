@@ -11,13 +11,13 @@ class Weight:
     def fuzzy_light(self, human):
         dom = 0
         if human.sex == self.MALE:
+            left = 55
+            top = 55
+            right = 75
+        else:
             left = 50
             top = 50
             right = 70
-        else:
-            left = 60
-            top = 60
-            right = 75
 
         if human.weight <= left:
             dom = 1
@@ -29,12 +29,12 @@ class Weight:
     def fuzzy_medium(self, human):
         dom = 0
         if human.sex == self.MALE:
+            left = 55
+            top = 75
+            right = 95
+        else:
             left = 50
             top = 70
-            right = 90
-        else:
-            left = 60
-            top = 75
             right = 90
 
         if left < human.weight < right:
@@ -45,13 +45,13 @@ class Weight:
     def fuzzy_heavy_1(self, human):
         dom = 0
         if human.sex == self.MALE:
+            left = 75
+            top = 95
+            right = 115
+        else:
             left = 70
             top = 90
             right = 110
-        else:
-            left = 75
-            top = 90
-            right = 105
 
         if left < human.weight < right:
             dom = triangle_calculate_membership(left, top, right, human.weight)
@@ -61,13 +61,13 @@ class Weight:
     def fuzzy_heavy_2(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 90
-            top = 105
-            right = 120
+            left = 95
+            top = 115
+            right = 135
         else:
             left = 90
-            top = 105
-            right = 120
+            top = 110
+            right = 130
 
         if left < human.weight < right:
             dom = triangle_calculate_membership(left, top, right, human.weight)
@@ -77,13 +77,13 @@ class Weight:
     def fuzzy_heavy_3(self, human):
         dom = 0
         if human.sex == self.MALE:
+            left = 115
+            top = 135
+            right = 155
+        else:
             left = 110
             top = 130
             right = 150
-        else:
-            left = 105
-            top = 120
-            right = 135
 
         if left < human.weight < right:
             dom = triangle_calculate_membership(left, top, right, human.weight)
@@ -93,13 +93,13 @@ class Weight:
     def fuzzy_heavy_4(self, human):
         dom = 0
         if human.sex == self.MALE:
+            left = 135
+            top = 155
+            right = 155
+        else:
             left = 130
             top = 150
             right = 150
-        else:
-            left = 120
-            top = 135
-            right = 135
 
         if human.weight >= right:
             dom = 1

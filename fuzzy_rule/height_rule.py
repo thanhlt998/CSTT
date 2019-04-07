@@ -11,13 +11,13 @@ class Height:
     def fuzzy_extremely_short(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 140
-            top = 140
-            right = 155
+            left = 155
+            top = 155
+            right = 165
         else:
-            left = 140
-            top = 140
-            right = 155
+            left = 145
+            top = 145
+            right = 157.5
 
         if human.height <= left:
             dom = 1
@@ -29,12 +29,12 @@ class Height:
     def fuzzy_short(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 140
-            top = 155
-            right = 170
+            left = 155
+            top = 165
+            right = 175
         else:
-            left = 140
-            top = 155
+            left = 145
+            top = 157.5
             right = 170
 
         if left < human.height < right:
@@ -45,13 +45,13 @@ class Height:
     def fuzzy_average(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 155
-            top = 170
+            left = 165
+            top = 175
             right = 185
         else:
-            left = 155
+            left = 157.5
             top = 170
-            right = 185
+            right = 182.5
 
         if left < human.height < right:
             dom = triangle_calculate_membership(left, top, right, human.height)
@@ -61,13 +61,13 @@ class Height:
     def fuzzy_tall(self, human):
         dom = 0
         if human.sex == self.MALE:
-            left = 170
+            left = 175
             top = 185
-            right = 200
+            right = 195
         else:
             left = 170
-            top = 185
-            right = 200
+            top = 182.5
+            right = 195
 
         if left < human.height < right:
             dom = triangle_calculate_membership(left, top, right, human.height)
@@ -78,12 +78,12 @@ class Height:
         dom = 0
         if human.sex == self.MALE:
             left = 185
-            top = 200
-            right = 200
+            top = 195
+            right = 195
         else:
-            left = 185
-            top = 200
-            right = 200
+            left = 182.5
+            top = 195
+            right = 195
 
         if human.height >= right:
             dom = 1
