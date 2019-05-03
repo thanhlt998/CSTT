@@ -1,24 +1,25 @@
-# import helper
 from model.human import Human
-# from model import fuzzy_attribute
-# from model import output
-# from fuzzy_rule import height_rule
-# from fuzzy_rule import weight_rule
-# from model import fuzzy_classifier
 from model.learner import Learner
-from sklearn.metrics import accuracy_score
-
-import operator
+from tkinter import *
 
 FULL_SET = []
 TRUE_RESULT = {}
 
 
+def check():
+    h = height.get()
+    w = weight.get()
+    print(int(h), int(w))
+    hum = Human("a", int(h), int(w), "Male")
+    FULL_SET.append(hum.get_fuzzy_info())
+    boosting()
+
+
 def create_training_data():
+    FULL_SET.clear()
     with open('train.txt', 'r') as f:
         for line in f.readlines():
             temp_list_attr = line.split('\t')
-            # if temp_list_attr[1].strip() == 'Female':
             FULL_SET.append(Human(
                 temp_list_attr[0],
                 int(temp_list_attr[2]),
@@ -32,24 +33,18 @@ def create_training_data():
 def boosting():
     weak_learner = []
     boost_set = {}
-    result = []
+    result = {}
 
     for item in FULL_SET:
         boost_set[item] = Learner([item]).action()
 
-    # for k, learner in boost_set.items():
-    #     if learner.is_terminated():
-    #         del boost_set[k]
-
     tmp_boost_set = {}
     for k, learner in boost_set.items():
         if learner.is_terminated():
-            result += [(hum.name, hum.cls.index) for hum in learner.itemset]
+            result = {**result, **{hum.name: hum.cls.__name__ for hum in learner.itemset}}
         else:
             tmp_boost_set[k] = learner
     boost_set = tmp_boost_set
-    # result = [k: learner for k, learner in boost_set.items() if learner.is_terminated()]
-    # boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
 
     round_ = 0
     while len(boost_set) > 0:
@@ -75,40 +70,42 @@ def boosting():
         for k, learner in boost_set.items():
             learner.action()
 
-        # for k, learner in boost_set.items():
-        #     if learner.is_terminated():
-        #         del boost_set[k]
-
         tmp_boost_set = {}
         for k, learner in boost_set.items():
             if learner.is_terminated():
-                result += [(hum.name, hum.cls.index) for hum in learner.itemset]
+                # result += [(hum.name, hum.cls.index) for hum in learner.itemset]
+                result = {**result, **{hum.name: hum.cls.__name__ for hum in learner.itemset}}
             else:
                 tmp_boost_set[k] = learner
         boost_set = tmp_boost_set
 
-        # boost_set = {k: learner for k, learner in boost_set.items() if not learner.is_terminated()}
-
         round_ = round_ + 1
         weak_learner = []
         print("--------8<---------- round: #", round_, "input left: #", len(boost_set))
-
-    # true_classifier = [TRUE_RESULT[name] for name, index in result]
-    # pred_classifier = [index for name, index in result]
-    # print("Accuracy: %.2f" % (
-    #             accuracy_score(true_classifier, pred_classifier) * 100))
-    #
-    # test_count = []
-    # for i in range(len(result)):
-    #     if result[i][1] != true_classifier[i]:
-    #         # print(f'{result[i][0]}\t{result[i][1]}\t{true_classifier[i]}')
-    #         test_count.append((result[i][1], true_classifier[i]))
-
-    # test_count_set = list(set(test_count))
-    # test_count_set = sorted(test_count_set, key=lambda v: test_count.count(v))
-    # for test in test_count_set:
-    #     print(test, '\t', test_count.count(test))
+        mlabel2 = Label(mGui, text=result['a'])
+        mlabel2.place(x=75, y=150)
 
 
 create_training_data()
-boosting()
+
+mGui = Tk()
+height = StringVar()
+weight = StringVar()
+
+mGui.geometry('250x180')
+mGui.title("Health Checker")
+
+mLabel = Label(mGui, text="Please import your information")
+mLabel.place(x=20, y=10)
+mLabelW = Label(mGui, text="Weight")
+mLabelW.place(x=10, y=50)
+mWeight = Entry(mGui, textvariable=weight)
+mWeight.place(x=60, y=50)
+mLabelW = Label(mGui, text="Height")
+mLabelW.place(x=10, y=80)
+mHeight = Entry(mGui, textvariable=height)
+mHeight.place(x=60, y=80)
+mButton = Button(mGui, text="Check", command=check)
+mButton.place(x=90, y=120)
+
+mGui.mainloop()
