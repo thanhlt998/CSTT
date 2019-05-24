@@ -174,10 +174,8 @@ def getIndex(res):
     for i in res:
         objects[i] += 1
     shape = []
-    num = []
-    for k, v in objects.items():
-        shape.append(k)
-        num.append(v)
+    num = [objects['ExtremelyWeak'], objects['Weak'], objects['Normal'], objects['Overweight'], objects['Obesity'], objects['ExtremelyObesity']]
+    
     # y_pos = np.arange(len(shape))
     print(objects)
     return shape, num
