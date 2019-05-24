@@ -29,3 +29,5 @@ class Human:
 
     def of_class(self, clss):
         self.cls = clss
+
+    
