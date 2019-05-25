@@ -1,22 +1,8 @@
 from model.human import Human
 from model.learner import Learner
-from tkinter import *
-import tkinter.messagebox, tkinter.filedialog
-import numpy as np
-import matplotlib.pyplot as plt
 
 FULL_SET = []
 TRUE_RESULT = {}
-
-
-# def check():
-#     create_training_data()
-#     h = height.get()
-#     w = weight.get()
-#     print(int(h), int(w), v.get())
-#     hum = Human("a", int(h), int(w), v.get())
-#     FULL_SET.append(hum.get_fuzzy_info())
-#     boosting()
 
 
 def create_training_data():
@@ -146,43 +132,15 @@ def boosting2(name):
         return result
 
 
-# def onImport():
-#     FULL_SET.clear()
-#     ftypes = [('text files', '*.txt'), ('All files', '*')]
-#     dlg = tkinter.filedialog.Open(mGui, filetypes=ftypes)
-#     fl = dlg.show()
-#     if fl != '':
-#         upload_res = []
-#         with open(fl, 'r') as f:
-#             for line in f.readlines():
-#                 temp_list_attr = line.split('\t')
-#                 FULL_SET.append(Human(
-#                     temp_list_attr[0],
-#                     int(temp_list_attr[2]),
-#                     int(temp_list_attr[3]),
-#                     temp_list_attr[1].strip()
-#                 ).get_fuzzy_info())
-#             f.close()
-#             upload_res = boosting2('a').values()
-#         showPlot(upload_res)
-
-
 def getIndex(res):
     objects = {
-        'ExtremelyWeak':0, 'Weak':0, 'Normal':0, 'Overweight':0, 'Obesity':0, 'ExtremelyObesity':0
+        'ExtremelyWeak': 0, 'Weak': 0, 'Normal': 0, 'Overweight': 0, 'Obesity': 0, 'ExtremelyObesity': 0
     }
     for i in res:
         objects[i] += 1
     shape = []
-    num = [objects['ExtremelyWeak'], objects['Weak'], objects['Normal'], objects['Overweight'], objects['Obesity'], objects['ExtremelyObesity']]
-    
-    # y_pos = np.arange(len(shape))
+    num = [objects['ExtremelyWeak'], objects['Weak'], objects['Normal'], objects['Overweight'], objects['Obesity'],
+           objects['ExtremelyObesity']]
+
     print(objects)
     return shape, num
-
-    # plt.bar(y_pos, num, align='center', alpha=0.5)
-    # plt.xticks(y_pos, shape)
-    # plt.ylabel('Number')
-    # plt.title('Health statistical')
-
-    # plt.savefig('templates/static/img/res.png')
